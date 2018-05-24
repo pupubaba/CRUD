@@ -10,13 +10,17 @@ class HomeController < ApplicationController
   end
 
   def create
-    m = Note.new
-    m.title = params[:title]
-    m.director = params[:director]
-    m.rating = params[:rating]
-    m.image = params[:img_address]
-    m.save
-    redirect_to ''
+    @m = Note.new
+    @m.title = params[:title]
+    @m.director = params[:director]
+    @m.rating = params[:rating]
+    @m.image = params[:img_address]
+    
+    if @m.save
+      redirect_to @m
+    else
+      render 'new'
+    end
   end
 
   def update
@@ -26,6 +30,6 @@ class HomeController < ApplicationController
   end
   
   def show
-    @movie = Note.find[:id]
+    @movie = Note.find(params[:id])
   end
 end
